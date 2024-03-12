@@ -62,6 +62,12 @@ class UserRegisterSchema(UserSchema):
     email = fields.Str(required= True)
 
 
+class ConditionSchema(Schema):
+    condition = fields.Str(load_only= True)
+
+
+
+
 
 
 

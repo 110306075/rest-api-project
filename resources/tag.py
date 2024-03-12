@@ -3,7 +3,7 @@ from flask_smorest import Blueprint, abort
 from db import db
 from sqlalchemy.exc import SQLAlchemyError,IntegrityError
 from models import StoreModel ,ItemModel , TagModel  
-# from models.tag import TagModel
+
 from schemas import TagSchema, TagItemSchema
 
 blp = Blueprint("Tags", "tags", description="Operations on tags")
@@ -14,7 +14,6 @@ class TagsInStore(MethodView):
     @blp.response(200,TagSchema(many=True))
     def get(self,store_id):
         store = StoreModel.query.get_or_404(store_id)
-
 
         return store.tags.all()
     @blp.arguments(TagSchema)
@@ -33,14 +32,6 @@ class TagsInStore(MethodView):
         
         return tag
 
-# @blp.route("/tag/<string:tag_id>")
-# class Tag(MethodView):
-#     @blp.response(200,TagSchema)
-#     def get(self, tag_id):
-#      tag = TagModel.query.get_or_404(tag_id)
-
-#      return tag
-    
 
 
 @blp.route("/item/<int:item_id>/tag/<int:tag_id>")
